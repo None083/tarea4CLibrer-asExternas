@@ -4,6 +4,7 @@
  */
 package daw;
 
+import javax.swing.JOptionPane;
 import org.apache.commons.lang3.RandomStringUtils;
 
 /**
@@ -21,8 +22,25 @@ public class Generador {
     }
 
     public static String paswordCadenaEstablecida(int num) {
-        String cadena = "aeiou813";
-        return RandomStringUtils.random(num, cadena);
+        final String CADENA = "aeiou813npg.";
+        return RandomStringUtils.random(num, CADENA);
+    }
+
+    public static int solicitarDatoInt() {
+
+        boolean seguir = true;
+        int dato = 0;
+        
+        do {
+            try {
+                dato = Integer.parseInt(JOptionPane.showInputDialog(
+                        "Introduce un número para el largo de la contraseña"));
+                seguir = false;
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null, "No has introducido un número");
+            }
+        } while (seguir);
+        return dato;
     }
 
 }

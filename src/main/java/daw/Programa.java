@@ -3,7 +3,6 @@
  */
 package daw;
 
-import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,40 +13,39 @@ public class Programa {
 
     public static void main(String[] args) {
 
-        int opcion;
+        String[] opcionesMenu = {"1.- PIN", "2.- Sistema operativo",
+            "3.- Contraseña personalizada", "4.- Salir"};
+        String opcionElegida = "";
 
         do {
 
-            opcion = Integer.parseInt(JOptionPane.showInputDialog("""
-                                            
-                                         ESCOGE UNA OPCIÓN
-                        --------------------------------------------------------
-                                1 - Crear pin para móvil
-                                2 - Crear contraseña para PC
-                                3 - Crear contraseña del largo deseado
-                        --------------------------------------------------------
-                                            """));
-            
-            switch(opcion){
-                case 1 ->{
-                    JOptionPane.showMessageDialog(null, Generador.pinTelMovil());
-                }
-                case 2 ->{
-                    JOptionPane.showMessageDialog(null, Generador.pcPassword());
-                }
-                case 3 ->{
-                    Scanner teclado = new Scanner(System.in);
-                    System.out.println("Introduce un número para el largo de la contraseña");
-                    int largoNum = teclado.nextInt();
-                    System.out.println(Generador.paswordCadenaEstablecida(largoNum));
-                }
-            }
-            
-            
+            opcionElegida = (String) JOptionPane.showInputDialog(null,
+                    "Elige una opción", "Generador de contraseñas",
+                    JOptionPane.QUESTION_MESSAGE, null,
+                    opcionesMenu, "1.- PIN");
 
-            if (!(opcion >= 1 && opcion <= 3)) {
-                JOptionPane.showMessageDialog(null, "Elige un número de la lista");
+            //Este if es por si presionas cancel en la ventana de opciones
+            if (opcionElegida == null) {
+                opcionElegida = "4.- Salir";
             }
-        } while (!(opcion == 3));
+
+            switch (opcionElegida) {
+                case "1.- PIN" -> {
+                    JOptionPane.showMessageDialog(null, "Pin: "
+                            + Generador.pinTelMovil());
+                }
+                case "2.- Sistema operativo" -> {
+                    JOptionPane.showMessageDialog(null, "Contraseña: "
+                            + Generador.pcPassword());
+                }
+                case "3.- Contraseña personalizada" -> {
+                    JOptionPane.showMessageDialog(null, "Contraseña: "
+                            + Generador.paswordCadenaEstablecida(Generador.solicitarDatoInt()));
+                }
+                default -> {
+                    JOptionPane.showMessageDialog(null, "CHAO PESCAO");
+                }
+            }
+        } while (!(opcionElegida.equals("4.- Salir")));
     }
 }
